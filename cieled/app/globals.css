@@ -6,3 +6,37 @@
 html, body {
   height: 100%;
 }
+
+@keyframes driftSlow {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(3px, -2px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes lineFade {
+  0% { opacity: 0.15; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.15; }
+}
+
+@keyframes focusPulse {
+  0% { opacity: 0.2; r: 18; }
+  50% { opacity: 0.45; r: 26; }
+  100% { opacity: 0.2; r: 18; }
+}
+
+.animate-driftSlow {
+  animation: driftSlow 10s ease-in-out infinite;
+}
+
+.animate-lineFade {
+  animation: lineFade 8s ease-in-out infinite;
+}
+
+.animate-focusPulse {
+  animation: focusPulse 6s ease-in-out infinite;
+}
+
+.delay-2000 { animation-delay: 2s; }
+.delay-3000 { animation-delay: 3s; }
+.delay-5000 { animation-delay: 5s; }

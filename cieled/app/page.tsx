@@ -13,12 +13,12 @@ export default function HomePage() {
             <a href="#tools" className="hover:text-white">Tools</a>
             <a href="#features" className="hover:text-white">Features</a>
             <a href="#usecases" className="hover:text-white">Use cases</a>
-            <a
-              href="/app"
+            {/* <a
+              href="/tool"
               className="text-white font-medium"
             >
               Launch Tool
-            </a>
+            </a> */}
           </nav>
         </div>
       </header>
@@ -27,33 +27,33 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
-            Engineering tools for color, optics & validation
+            Engineering tools for real-world problem solvers
             <span className="block text-gray-400 mt-3 text-2xl">
-              Built by Xuanlabs for real hardware workflows
+              Built by Xuanlabs for engineers working across hardware, software, data, and validation.
             </span>
           </h1>
 
           <p className="mt-6 text-gray-300 text-lg max-w-xl">
-            Our first tool — the{" "}
-            <strong>CIE 1931 Chromaticity Comparator</strong> —
-            helps hardware teams visually validate and communicate
-            color accuracy <strong>in minutes, not hours</strong>.
+            Xuanlabs builds{" "}
+            <strong>focused, no-nonsense tools</strong> —
+            that help engineers move faster from <strong>color science and optics to validation, data analysis, automation, and internal workflows.</strong>.
+            Our tools are designed for teams who prefer clarity over complexity and results over buzzwords.
           </p>
 
           <p className="mt-4 text-gray-400 max-w-xl">
-            No heavy software. No complex setup.
-            Just open, plot, and analyze.
+            No heavy software. No messy setups.
+Just open, build, analyze, and ship.
           </p>
 
           <div className="mt-8 flex gap-4">
-            <a
-              href="/app"
+            {/* <a
+              href="/tool"
               className="inline-flex items-center justify-center px-6 py-3 rounded-md
                          bg-brand-accent text-white font-medium
                          hover:bg-blue-500 transition"
             >
               Launch Tool
-            </a>
+            </a> */}
 
             <a
               href="#tools"
@@ -67,13 +67,92 @@ export default function HomePage() {
         </div>
 
         {/* Visual placeholder */}
-        <div className="hidden md:block">
-          <div
-            className="aspect-video rounded-xl bg-gradient-to-br
-                       from-blue-500/10 via-purple-500/10 to-pink-500/10
-                       border border-white/10"
+       <div className="hidden md:block">
+  <div className="relative aspect-video rounded-xl border border-white/10 bg-brand-panel overflow-hidden">
+
+    {/* SVG system */}
+    <svg
+      viewBox="0 0 600 360"
+      className="w-full h-full"
+      aria-hidden
+    >
+      {/* Grid */}
+      <defs>
+        <pattern
+          id="grid"
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            d="M 40 0 L 0 0 0 40"
+            fill="none"
+            stroke="rgba(255,255,255,0.035)"
+            strokeWidth="1"
           />
-        </div>
+        </pattern>
+      </defs>
+
+      <rect width="600" height="360" fill="url(#grid)" />
+
+      {/* Connection lines */}
+      <g className="opacity-60">
+        <line
+          x1="140"
+          y1="90"
+          x2="360"
+          y2="200"
+          className="stroke-blue-400/40 animate-lineFade"
+          strokeWidth="1.5"
+        />
+        <line
+          x1="200"
+          y1="260"
+          x2="360"
+          y2="200"
+          className="stroke-pink-400/30 animate-lineFade delay-2000"
+          strokeWidth="1.5"
+        />
+      </g>
+
+      {/* Drifting points */}
+      <circle
+        cx="140"
+        cy="90"
+        r="5"
+        className="fill-blue-400 animate-driftSlow"
+      />
+      <circle
+        cx="200"
+        cy="260"
+        r="4"
+        className="fill-pink-400 animate-driftSlow delay-3000"
+      />
+      <circle
+        cx="420"
+        cy="120"
+        r="4"
+        className="fill-purple-400 animate-driftSlow delay-5000"
+      />
+
+      {/* Focus / analysis region */}
+      <circle
+        cx="360"
+        cy="200"
+        r="10"
+        className="fill-emerald-400"
+      />
+      <circle
+        cx="360"
+        cy="200"
+        r="24"
+        className="stroke-emerald-400/30 fill-none animate-focusPulse"
+        strokeWidth="1.5"
+      />
+    </svg>
+  </div>
+</div>
+
       </section>
 
       {/* ================= TOOL CATALOG ================= */}
@@ -98,7 +177,7 @@ export default function HomePage() {
                 using the CIE 1931 diagram.
               </p>
               <a
-                href="/app"
+                href="/tool"
                 className="text-blue-400 text-sm hover:underline"
               >
                 Launch →

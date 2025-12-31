@@ -367,7 +367,7 @@ export default function CIEComparator() {
             />
             <button type="submit">Unlock</button>
           </form>
-          <p style={{ color: "#666" }}>Set REACT_APP_CIE_APP_PASSWORD in your host's environment variables to protect the app.</p>
+          
         </div>
       ) : (
         <div>

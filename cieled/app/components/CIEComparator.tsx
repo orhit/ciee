@@ -161,15 +161,17 @@ export default function CIEComparator() {
       const color = COLORS[si % COLORS.length];
       const pts = set.points.map(toCanvas);
 
-      if (showFill && pts.length >= 3) {
-        ctx.beginPath();
-        pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
-        ctx.closePath();
-        ctx.globalAlpha = 0.25;
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
+      // if (showFill && pts.length >= 3) {
+      //   ctx.beginPath();
+      //   pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      //   ctx.closePath();
+      //   ctx.globalAlpha = 0.25;
+      //   ctx.fillStyle = color;
+      //   ctx.fill();
+      //   ctx.globalAlpha = 1;
+      // }
+
+
 
       if (showBorders && pts.length >= 2) {
         ctx.beginPath();

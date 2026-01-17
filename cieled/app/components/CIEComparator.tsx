@@ -48,8 +48,8 @@ function dominantWavelength(x: number, y: number) {
 
 const defaultPolygon = (idx: number) =>
   Array.from({ length: 4 }, (_, i) => [
-    0.68 + idx * 0.01 + i * 0.005,
-    0.3 - idx * 0.01 - i * 0.005,
+    0.4326 + idx * 0.01 + i * 0.005,
+    0.38 - idx * 0.01 - i * 0.005,
   ]);
 
 const COLORS = [
@@ -66,7 +66,10 @@ const COLORS = [
 ============================================================ */
 
 export default function CIEComparator() {
+
+   const [showMobileControls, setShowMobileControls] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
 
   const [sets, setSets] = useState(
     Array.from({ length: 2 }, (_, i) => ({
@@ -83,6 +86,7 @@ export default function CIEComparator() {
   const [showCentroids, setShowCentroids] = useState(true);
   const [showWavelengths, setShowWavelengths] = useState(true);
   const [autoZoom, setAutoZoom] = useState(true);
+ 
 
   /* ============================================================
      KEEP SET COUNT IN SYNC (UP TO 6)
@@ -251,7 +255,7 @@ function downloadCSV() {
   URL.revokeObjectURL(url);
 }
   return (
-    <div className="h-screen flex bg-neutral-950 text-white">
+    <div className="min-h-screen flex bg-neutral-950 text-white flex-col md:flex-row">
       {/* SIDEBAR */}
      <aside className="w-80 p-5 border-r border-white/10 bg-neutral-950 overflow-y-auto hidden md:block">
   <h2 className="text-lg font-semibold mb-6">LED Sets</h2>
@@ -346,14 +350,65 @@ function downloadCSV() {
   </div>
 </aside>
 
+{/* MOBILE CONTROL BUTTON */}
+<button
+  onClick={() => setShowMobileControls(v => !v)}
+  className="md:hidden mb-3 px-4 py-2 bg-neutral-800 rounded text-sm"
+>
+  {showMobileControls ? "Hide Controls" : "Show Controls"}
+</button>
+
       {/* CANVAS */}
       <main className="flex-1 flex items-center justify-center p-4">
-        <canvas
-          ref={canvasRef}
-          width={900}
-          height={720}
-          className="rounded bg-neutral-900 shadow-inner"
-        />
+      <div className="flex justify-center">  <canvas
+  ref={canvasRef}
+  width={900}
+  height={720}
+  className="
+    rounded bg-neutral-900 shadow-inner
+    md:w-[900px] md:h-[720px]
+    w-full h-auto
+  "
+/> </div>
+
+ {/* MOBILE CONTROLS */}
+{showMobileControls && (
+  <div className="md:hidden w-full mt-4 p-4 bg-neutral-900 rounded-lg text-sm space-y-3">
+    
+    <div className="grid grid-cols-2 gap-2">
+      <label>
+        <input type="checkbox" checked={autoZoom} onChange={e => setAutoZoom(e.target.checked)} /> Auto zoom
+      </label>
+      <label>
+        <input type="checkbox" checked={showPoints} onChange={e => setShowPoints(e.target.checked)} /> Points
+      </label>
+      <label>
+        <input type="checkbox" checked={showBorders} onChange={e => setShowBorders(e.target.checked)} /> Borders
+      </label>
+      <label>
+        <input type="checkbox" checked={showCentroids} onChange={e => setShowCentroids(e.target.checked)} /> Centroids
+      </label>
+      <label>
+        <input type="checkbox" checked={showWavelengths} onChange={e => setShowWavelengths(e.target.checked)} /> Wavelength
+      </label>
+    </div>
+
+    <div className="grid grid-cols-2 gap-2 pt-2">
+      <button
+        onClick={downloadPNG}
+        className="bg-neutral-800 rounded py-2"
+      >
+        Export PNG
+      </button>
+      <button
+        onClick={downloadCSV}
+        className="bg-neutral-800 rounded py-2"
+      >
+        Export CSV
+      </button>
+    </div>
+  </div>
+)}
       </main>
     </div>
   );

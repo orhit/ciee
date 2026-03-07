@@ -231,7 +231,6 @@ export default function HomePage() {
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="p-8 rounded-2xl border border-white/10 bg-black/20 flex flex-col">
-              <a href="/demo" className="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition">
               <h3 className="text-xl font-bold mb-2">Individual</h3>
               <div className="text-3xl font-bold mb-4">$0 <span className="text-sm font-normal text-gray-500">/mo</span></div>
               <ul className="text-gray-400 text-sm space-y-3 mb-8 text-left flex-1">
@@ -239,8 +238,11 @@ export default function HomePage() {
                 <li className="flex items-center gap-2">✓ 1 LED Sets Max</li>
                 <li className="flex items-center gap-2">✓ CSV & PDF Exports</li>
               </ul>
-              <button className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition">Start Free</button>
-            </div></a>
+              <button className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition"><a 
+                href="mailto:contact@xuanlabs.info?subject=Enterprise Inquiry" 
+                className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition block text-center"
+              >Start Free</a></button>
+            </div>
  
 
             
@@ -256,7 +258,10 @@ export default function HomePage() {
                 <li className="flex items-center gap-2 font-medium text-gray-200">✓ CSV & PDF Exports</li>
                 <li className="flex items-center gap-2 font-medium text-gray-200">✓ Custom Tolerance Bins</li>
               </ul>
-              <button className="w-full py-3 rounded-lg bg-brand-accent hover:bg-blue-600 transition font-bold">Get Started</button>
+              <button className="w-full py-3 rounded-lg bg-brand-accent hover:bg-blue-600 transition font-bold"><a 
+                href="mailto:contact@xuanlabs.info?subject=Enterprise Inquiry" 
+                className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition block text-center"
+              >Get Started</a></button>
             </div>
             
             <div className="p-8 rounded-2xl border border-white/10 bg-black/20 flex flex-col">
@@ -269,7 +274,7 @@ export default function HomePage() {
                 <li className="flex items-center gap-2">✓ On-premise Options</li>
               </ul>
               <a 
-                href="mailto:contact@xuanlabs.com?subject=Enterprise Inquiry" 
+                href="mailto:contact@xuanlabs.info?subject=Enterprise Inquiry" 
                 className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition block text-center"
               >
                 Contact Sales

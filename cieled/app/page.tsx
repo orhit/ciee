@@ -55,7 +55,7 @@ export default function HomePage() {
             </a>
 
             <a
-              href="mailto:contact@xuanlabs.com?subject=Request for Demo"
+              href="mailto:contact@xuanlabs.info?subject=Request for Demo"
               className="inline-flex items-center justify-center px-8 py-4 rounded-lg
                          border border-white/20 text-gray-200 font-semibold text-lg
                          hover:bg-white/5 transition"
@@ -231,15 +231,18 @@ export default function HomePage() {
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="p-8 rounded-2xl border border-white/10 bg-black/20 flex flex-col">
+              <a href="/demo" className="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition">
               <h3 className="text-xl font-bold mb-2">Individual</h3>
               <div className="text-3xl font-bold mb-4">$0 <span className="text-sm font-normal text-gray-500">/mo</span></div>
               <ul className="text-gray-400 text-sm space-y-3 mb-8 text-left flex-1">
                 <li className="flex items-center gap-2">✓ Basic CIE Plotting</li>
-                <li className="flex items-center gap-2">✓ 2 LED Sets Max</li>
-                <li className="flex items-center gap-2">✓ PNG Export</li>
+                <li className="flex items-center gap-2">✓ 1 LED Sets Max</li>
+                <li className="flex items-center gap-2">✓ CSV & PDF Exports</li>
               </ul>
               <button className="w-full py-3 rounded-lg border border-white/20 hover:bg-white/5 transition">Start Free</button>
-            </div>
+            </div></a>
+ 
+
             
             <div className="p-8 rounded-2xl border-2 border-brand-accent bg-black/40 relative flex flex-col transform md:scale-105">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">

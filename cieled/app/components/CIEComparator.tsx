@@ -16,6 +16,13 @@ function XYZ_to_sRGB([X, Y, Z]: number[]) {
   let g = -0.9689 * X + 1.8758 * Y + 0.0415 * Z;
   let b = 0.0557 * X - 0.204 * Y + 1.057 * Z;
 
+  const max = Math.max(r, g, b);
+  if (max > 0) {
+    r /= max;
+    g /= max;
+    b /= max;
+  }
+
   const compand = (c: number) =>
     c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
 
@@ -243,7 +250,7 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
             ctx.shadowBlur = 4;
             ctx.shadowColor = "rgba(0,0,0,0.5)";
             ctx.font = "bold 10px Inter, sans-serif";
-            ctx.fillText(dominantWavelength(p[0], p[1]), x + 8, y + 4);
+            ctx.fillText(`(${p[0].toFixed(4)}, ${p[1].toFixed(4)})`, x + 8, y + 4);
             ctx.shadowBlur = 0;
           }
         });
@@ -321,7 +328,19 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
             <div key={si} className="p-3 bg-neutral-900/50 rounded-lg border border-white/5">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[si % COLORS.length] }}></div>
-                <div className="text-xs font-bold text-gray-300 uppercase">{s.name}</div>
+                <input
+                  type="text"
+                  value={s.name}
+                  onChange={e => {
+                    const v = e.target.value;
+                    setSets(prev => {
+                      const c = [...prev];
+                      c[si].name = v;
+                      return c;
+                    });
+                  }}
+                  className="bg-transparent border-b border-transparent hover:border-white/20 focus:border-brand-accent outline-none text-xs font-bold text-gray-300 uppercase w-full"
+                />
               </div>
 
               <div className="space-y-2">
@@ -379,7 +398,7 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
               { label: "Outline Polygons", val: showBorders, set: setShowBorders },
               { label: "Fill Areas", val: showFill, set: setShowFill },
               { label: "Plot Centroids", val: showCentroids, set: setShowCentroids },
-              { label: "Show Wavelengths", val: showWavelengths, set: setShowWavelengths },
+              { label: "Show Coordinates", val: showWavelengths, set: setShowWavelengths },
             ].map((ctrl, i) => (
               <label key={i} className="flex items-center justify-between p-2 rounded hover:bg-white/5 cursor-pointer transition">
                 <span className="text-sm text-gray-400">{ctrl.label}</span>

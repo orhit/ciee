@@ -96,6 +96,64 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
   const [showCentroids, setShowCentroids] = useState(true);
   const [showWavelengths, setShowWavelengths] = useState(true);
   const [autoZoom, setAutoZoom] = useState(true);
+  const [isProcessingOCR, setIsProcessingOCR] = useState(false);
+
+  /* ============================================================
+     OCR PASTE & UPLOAD HANDLER
+  ============================================================ */
+  const processImageForOCR = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Img = event.target?.result as string;
+      setIsProcessingOCR(true);
+      try {
+        const res = await fetch("/api/ocr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: base64Img }),
+        });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          const parsedSets = data.data.map((d: any, idx: number) => ({
+             name: d.name || `OCR Set ${idx+1}`,
+             points: Array.isArray(d.points) ? d.points.map((p: any) => [Number(p[0]||0), Number(p[1]||0)]) : defaultPolygon(idx)
+          }));
+          setNumSets(Math.max(parsedSets.length, numSets));
+          setTimeout(() => {
+            setSets(prev => {
+              const updated = [...prev];
+              parsedSets.forEach((ps, i) => {
+                if (i < updated.length) updated[i] = ps;
+              });
+              return updated;
+            });
+          }, 0);
+        } else {
+          alert("OCR failed: " + (data.error || "Could not parse coordinates."));
+        }
+      } catch (err) {
+        alert("OCR error: " + err);
+      } finally {
+        setIsProcessingOCR(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          const blob = items[i].getAsFile();
+          if (blob) processImageForOCR(blob);
+        }
+      }
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
+  }, []);
 
   /* ============================================================
      RESPONSIVE CANVAS RESIZING
@@ -320,6 +378,22 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
             onChange={e => setNumSets(Number(e.target.value))}
             className="w-full bg-neutral-900 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-brand-accent outline-none transition"
           />
+        </section>
+
+        {/* OCR UPLOAD */}
+        <section className="p-3 bg-brand-accent/10 border border-brand-accent/30 rounded-lg text-center relative overflow-hidden group shrink-0">
+          <div className="text-xs font-bold text-blue-400 mb-1">OCR Image Import</div>
+          <div className="text-[10px] text-gray-400 mb-2">Paste (Ctrl+V) or upload an image of coordinates to auto-fill sets.</div>
+          <label className="cursor-pointer inline-block bg-brand-accent text-white text-[10px] uppercase tracking-wide font-bold px-3 py-2 rounded hover:bg-blue-600 transition">
+            {isProcessingOCR ? "Processing..." : "Upload Image"}
+            <input 
+              type="file" 
+              accept="image/*" 
+              className="hidden" 
+              onChange={e => e.target.files?.[0] && processImageForOCR(e.target.files[0])} 
+            />
+          </label>
+          {isProcessingOCR && <div className="absolute top-0 left-0 h-1 bg-blue-500 animate-pulse w-full"></div>}
         </section>
 
         {/* LED SETS */}

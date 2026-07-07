@@ -122,7 +122,7 @@ export default function CIEComparator({ isDemo = false }: CIEComparatorProps) {
           setTimeout(() => {
             setSets(prev => {
               const updated = [...prev];
-              parsedSets.forEach((ps, i) => {
+              parsedSets.forEach((ps: { name: string; points: number[][] }, i: number) => {
                 if (i < updated.length) updated[i] = ps;
               });
               return updated;
